@@ -5,21 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MusicSyncFrontEnd"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold">Spotify Music</Label>
-        <Label Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold">YouTube Music</Label>
-        <ListBox Name="spotifyListBox" Grid.Row="1" Grid.Column="0">
-        </ListBox>
-        <ListBox Name="youtubeListBox" Grid.Row="1" Grid.Column="1">
-        </ListBox>
+        <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1,0,0,0"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            <Button x:Name="loadListsBtn" Height="20" Click="loadListsBtn_Click">Get Lists</Button>
+            <Button x:Name="loadListsBtn2" Height="20" Click="loadListsBtn_Click">Get Lists</Button>
+        </StackPanel>
+        
+        <Label Grid.Row="0" Grid.Column="0" FontSize="20" HorizontalAlignment="Center" FontWeight="ExtraBold">Navigation</Label>
+        <Label x:Name="pageLabel" Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" FontWeight="ExtraBold">Page</Label>
+        <Frame x:Name="mainWindow" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 </Window>

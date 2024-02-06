@@ -26,6 +26,7 @@ namespace MusicPlaylistSync
         {
             this.clientId = client;
             this.clientSecret = secret;
+            login();
         }
         public async Task<bool> login()
         {

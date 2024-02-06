@@ -12,5 +12,6 @@ namespace MusicSyncFrontEnd
         public string youtubeSecret { get; set; }
         public string spotifyClientID { get; set; }
         public string spotifySecret { get; set; }
+        public string spotifyAccessToken { get; set; }
     }
 }

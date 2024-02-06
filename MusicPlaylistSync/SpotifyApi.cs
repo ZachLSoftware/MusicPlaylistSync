@@ -18,13 +18,15 @@ namespace MusicPlaylistSync
         private bool IsRunning;
         private SpotifyClient spotify;
         private string accessToken = "";
+        private ImplictGrantResponse implicitGrantResponse;
         private string clientID;
         private string clientSecret;
 
-        public SpotifyApi(string client, string secret)
+        public SpotifyApi(string client, string secret, string accessToken)
         {
             this.clientID = client;
             this.clientSecret = secret;
+            this.accessToken = accessToken;
         }
         public async Task getLogin()
         {
@@ -39,11 +41,12 @@ namespace MusicPlaylistSync
         {
             try
             {
-                spotify = new SpotifyClient(clientID, accessToken);
+                spotify = new SpotifyClient(accessToken);
                 await spotify.UserProfile.Get(clientID);
             }
             catch (Exception ex) 
             {
+                Console.WriteLine(ex);
                 _server = new EmbedIOAuthServer(new Uri("http://localhost:5543/callback"), 5543);
                 _server.ImplictGrantReceived += OnImplicitGrantReceived;
                 _server.ErrorReceived += OnErrorReceived;
@@ -65,8 +68,11 @@ namespace MusicPlaylistSync
         private async Task OnImplicitGrantReceived(object sender, ImplictGrantResponse response)
         {
             await _server.Stop();
+
             IsRunning = false;
             spotify = new SpotifyClient(response.AccessToken);
+            accessToken = response.AccessToken;
+            implicitGrantResponse = response;
             Console.WriteLine(response.AccessToken);
         }
 
@@ -98,6 +104,10 @@ namespace MusicPlaylistSync
             }
         }
 
+        public string getToken()
+        {
+            return accessToken;
+        }
         public async Task<FullTrack> songSearch((string, string) song)
         {
             string query = $"track:\"{song.Item1}\" artist:\"{song.Item2}\"";

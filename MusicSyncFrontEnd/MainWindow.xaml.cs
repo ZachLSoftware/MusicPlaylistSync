@@ -21,31 +21,12 @@ namespace MusicSyncFrontEnd
         public MainWindow()
         {
             InitializeComponent();
-            populateLists();
-
         }
 
-        private async Task populateLists()
+        private void loadListsBtn_Click(object sender, RoutedEventArgs e)
         {
-            
-            await App.youtubeApi.login();
-            await App.spotifyApi.getLogin();
-            var spotifyTracks = await App.spotifyApi.getTracks();
-            var youtubeTracks = await App.youtubeApi.getTracks();
-
-            spotifyTracks.Sort();
-            youtubeTracks.Sort();
-            spotifyListBox.ItemsSource = spotifyTracks;
-            youtubeListBox.ItemsSource = youtubeTracks;
-
-            //foreach (var track in spotifyTracks)
-            //{
-            //    spotifyListBox.Items.Add(track);
-            //}
-            //foreach (var track in youtubeTracks)
-            //{
-            //    youtubeListBox.Items.Add(track);
-            //}
+            mainWindow.Content = new PlayListCompare();
+            pageLabel.Content = "Playlist Comparison";
         }
     }
 }
