@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MusicPlaylistSync
 {
-    internal class listCompare
+    public class ListCompare
     {
 
         private List<(string, string)> youtubeList;
         private List<(string, string)> spotifyList;
-        public listCompare(List<(string, string)> youtube, List<(string,string)> spotify) { youtubeList = youtube; spotifyList = spotify; }
+        public ListCompare(List<(string, string)> youtube, List<(string,string)> spotify) { youtubeList = youtube; spotifyList = spotify; }
 
         public List<List<(string,string)>> getLists()
         {

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MusicPlaylistSync;
 
 namespace MusicSyncFrontEnd
 {
@@ -34,11 +35,41 @@ namespace MusicSyncFrontEnd
             await App.spotifyApi.getLogin();
             var spotifyTracks = await App.spotifyApi.getTracks();
             var youtubeTracks = await App.youtubeApi.getTracks();
+            ListCompare listCompare = new MusicPlaylistSync.ListCompare(youtubeTracks, spotifyTracks);
+            List<List<(string,string)>> allLists = listCompare.getLists();
 
-            spotifyTracks.Sort();
-            youtubeTracks.Sort();
-            spotifyListBox.ItemsSource = spotifyTracks;
-            youtubeListBox.ItemsSource = youtubeTracks;
+            for (int i = 0; i < allLists.Count; i++)
+            {
+                foreach (var track in allLists[i])
+                {
+                    var item = new ListBoxItem { Content = track };
+                    if (i == 0)
+                    {
+                        item.Style = (Style)FindResource("InBoth");
+                        spotifyListBox.Items.Add(new ListBoxItem { Content = track, Style = item.Style });
+                        youtubeListBox.Items.Add(new ListBoxItem { Content = track, Style = item.Style });
+                    }
+                    // Add separate instances of ListBoxItem to each ListBox
+
+                    else if ( i == 1)
+                    {
+                        item.Style = (Style)FindResource("SameName");
+                        spotifyListBox.Items.Add(new ListBoxItem { Content = track, Style = item.Style });
+                        youtubeListBox.Items.Add(new ListBoxItem { Content = track, Style = item.Style });
+                    }
+                    else if ( i == 2)
+                    {
+                        item.Style = (Style)FindResource("NotIn");
+                        youtubeListBox.Items.Add(new ListBoxItem { Content = track, Style = item.Style });
+                    }
+                    else
+                    {
+                        item.Style = (Style)FindResource("NotIn");
+                        spotifyListBox.Items.Add(new ListBoxItem { Content = track, Style = item.Style });
+
+                    }
+                }
+            }
 
             //foreach (var track in spotifyTracks)
             //{

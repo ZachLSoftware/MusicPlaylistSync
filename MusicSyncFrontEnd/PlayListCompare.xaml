@@ -7,6 +7,25 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PlayListCompare">
+    <Page.Resources>
+        <Style x:Key="DefaultItemStyle" TargetType="ListBoxItem">
+            <!-- Default style for ListBoxItem -->
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style x:Key="InBoth" TargetType="ListBoxItem">
+            <!-- Style for special items -->
+            <Setter Property="Background" Value="LightGreen"/>
+        </Style>
+        <Style x:Key="SameName" TargetType="ListBoxItem">
+            <!-- Style for special items -->
+            <Setter Property="Background" Value="LightYellow"/>
+        </Style>
+        <Style x:Key="NotIn" TargetType="ListBoxItem">
+            <!-- Style for special items -->
+            <Setter Property="Background" Value="red"/>
+        </Style>
+        <!-- Define more styles as needed for different conditions -->
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,9 +38,16 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold">Spotify Music</Label>
         <Label Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold">YouTube Music</Label>
-        <ListBox Name="spotifyListBox" Grid.Row="1" Grid.Column="0">
+
+        <ListBox Name="spotifyListBox" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Stretch">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultItemStyle}"/>
+            </ListBox.ItemContainerStyle>
         </ListBox>
-        <ListBox Name="youtubeListBox" Grid.Row="1" Grid.Column="1">
+        <ListBox Name="youtubeListBox" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Stretch">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultItemStyle}"/>
+            </ListBox.ItemContainerStyle>
         </ListBox>
     </Grid>
 </Page>
